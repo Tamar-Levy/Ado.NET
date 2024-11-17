@@ -10,9 +10,9 @@ namespace Ado.NET
 {
     internal class Product
     {
+        int rowsEffact = 0;
         public int InsertProduct(string connectionString)
-        {
-            int rowsEffact = 0;
+        { 
             string Category_Id,Name, Describtion, Price, Image;
             Console.WriteLine("insert CategoryId");
             Category_Id = Console.ReadLine();

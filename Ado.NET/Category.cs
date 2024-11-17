@@ -13,9 +13,9 @@ namespace Ado.NET
 {
     internal class Category
     {
-        
-        public int InsertCategory(string connectionString) {
-            int rowsEffact = 0;
+        int rowsEffact = 0;
+        public void InsertCategory(string connectionString) {
+            
             string Name;
             Console.WriteLine("insert CategoryName");
             Name = Console.ReadLine();
@@ -37,9 +37,10 @@ namespace Ado.NET
                 {
                     InsertCategory(connectionString);
                 }
+                else { 
                 Console.WriteLine(rowsEffact + "  RowAffected");
-                rowsEffact = 0;
-                return RowAffected;
+                    rowsEffact = 0;
+                }
             }
        }
         public void readCategory(string connectionString)

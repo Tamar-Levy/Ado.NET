@@ -14,9 +14,9 @@ namespace Ado.NET
             Category category = new Category();
             Product product = new Product();
             //product.readProduct(connectionString);
-            category.readCategory(connectionString);
-            //category.InsertCategory(connectionString);
-            //product.InsertProduct(connectionString);
+            //category.readCategory(connectionString);
+            category.InsertCategory(connectionString);
+            product.InsertProduct(connectionString);
         }
     }
 }
