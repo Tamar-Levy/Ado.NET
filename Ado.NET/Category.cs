@@ -14,7 +14,9 @@ namespace Ado.NET
     {
         public int InsertCategory(string connectionString) {
             Console.WriteLine("DO you want to add category? y/n");
-            string res=Console.
+            string res = Console.ReadLine();
+            if (res =="n")
+                return -1;
             string Name;
         Console.WriteLine("insert CategoryName");
             Name = Console.ReadLine();

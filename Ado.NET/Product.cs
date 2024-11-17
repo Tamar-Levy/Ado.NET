@@ -12,6 +12,10 @@ namespace Ado.NET
     {
         public int InsertProduct(string connectionString)
         {
+            Console.WriteLine("DO you want to add Product? y/n");
+            string res = Console.ReadLine();
+            if (res == "n")
+                return -1;
             string Category_Id,Name, Describtion, Price, Image;
             Console.WriteLine("insert CategoryId");
             Category_Id = Console.ReadLine();
