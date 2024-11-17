@@ -12,10 +12,7 @@ namespace Ado.NET
     {
         public int InsertProduct(string connectionString)
         {
-            Console.WriteLine("DO you want to add Product? y/n");
-            string res = Console.ReadLine();
-            if (res == "n")
-                return -1;
+            int rowsEffact = 0;
             string Category_Id,Name, Describtion, Price, Image;
             Console.WriteLine("insert CategoryId");
             Category_Id = Console.ReadLine();
@@ -40,9 +37,40 @@ namespace Ado.NET
                 command.Parameters.Add("@Image", SqlDbType.VarChar, 50).Value = Image;
                 connection.Open();
                 int RowAffected = command.ExecuteNonQuery();
+                rowsEffact++;
                 connection.Close();
-
+                Console.WriteLine("DO you want to add Product? y/n");
+                string res = Console.ReadLine();
+                if (res == "y")
+                {
+                    InsertProduct(connectionString);
+                }
+                Console.WriteLine(RowAffected + "  RowAffected");
+                rowsEffact = 0;
                 return RowAffected;
+            }
+        }
+        public void readProduct(string connectionString)
+        {
+            string queryString = "select * from Products";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Console.WriteLine("\t{0}\t{1}\\t{2}\\t{3}\t{4}\t{5}", reader[0], reader[1], reader[2], reader[3],reader[4], reader[5]);
+                    }
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                Console.ReadLine();
             }
         }
     }

@@ -7,18 +7,17 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using System.Runtime.InteropServices;
+using System.Collections;
 
 namespace Ado.NET
 {
     internal class Category
     {
+        
         public int InsertCategory(string connectionString) {
-            Console.WriteLine("DO you want to add category? y/n");
-            string res = Console.ReadLine();
-            if (res =="n")
-                return -1;
+            int rowsEffact = 0;
             string Name;
-        Console.WriteLine("insert CategoryName");
+            Console.WriteLine("insert CategoryName");
             Name = Console.ReadLine();
 
             string query = "INSERT INTO Category(Name)" + "VALUES(@Name)";
@@ -29,21 +28,45 @@ namespace Ado.NET
                 command.Parameters.Add("@Name",SqlDbType.VarChar, 50).Value = Name;
                 connection.Open();
                 int RowAffected = command.ExecuteNonQuery();
+                rowsEffact++;
                 connection.Close();
 
+                Console.WriteLine("DO you want to add category? y/n");
+                string res = Console.ReadLine();
+                if (res == "y")
+                {
+                    InsertCategory(connectionString);
+                }
+                Console.WriteLine(rowsEffact + "  RowAffected");
+                rowsEffact = 0;
                 return RowAffected;
             }
        }
+        public void readCategory(string connectionString)
+        {
+            string queryString = "select * from Category";
+            using (SqlConnection connection = new SqlConnection(connectionString)) 
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while(reader.Read())
+                    {
+                        Console.WriteLine("\t{0}\t{1}", reader[0], reader[1]);
+                    }
+                    reader.Close();
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                Console.ReadLine();
+            }
+        }
 
-         
-        //private static void CreateCommand(string queryString,string connectionString)
-        //{
-        //    using (SqlConnection connection=new SqlConnection(connectionString))
-        //    {
-        //        SqlCommand command = new SqlCommand(queryString, connection);
-        //        command.Connection.Open();
-        //        command.ExecuteNonQuery();
-        //    }
-        //}
-    }
+
+        }
+
 }
