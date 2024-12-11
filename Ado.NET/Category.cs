@@ -16,16 +16,16 @@ namespace Ado.NET
         int rowsEffact = 0;
         public void InsertCategory(string connectionString) {
             
-            string Name;
+            string Category_Name;
             Console.WriteLine("insert CategoryName");
-            Name = Console.ReadLine();
+            Category_Name = Console.ReadLine();
 
-            string query = "INSERT INTO Category(Name)" + "VALUES(@Name)";
+            string query = "INSERT INTO Categories(Category_Name)" + "VALUES(@Category_Name)";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             using (SqlCommand command = new SqlCommand(query, connection))
             {
-                command.Parameters.Add("@Name",SqlDbType.VarChar, 50).Value = Name;
+                command.Parameters.Add("@Category_Name", SqlDbType.VarChar, 50).Value = Category_Name;
                 connection.Open();
                 int RowAffected = command.ExecuteNonQuery();
                 rowsEffact++;
@@ -45,7 +45,7 @@ namespace Ado.NET
        }
         public void readCategory(string connectionString)
         {
-            string queryString = "select * from Category";
+            string queryString = "select * from Categories";
             using (SqlConnection connection = new SqlConnection(connectionString)) 
             {
                 SqlCommand command = new SqlCommand(queryString, connection);

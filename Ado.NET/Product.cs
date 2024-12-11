@@ -13,28 +13,25 @@ namespace Ado.NET
         int rowsEffact = 0;
         public int InsertProduct(string connectionString)
         { 
-            string Category_Id,Name, Describtion, Price, Image;
-            Console.WriteLine("insert CategoryId");
-            Category_Id = Console.ReadLine();
+            string Product_Name, Category_Id, Price, Description;
             Console.WriteLine("insert ProductName");
-            Name = Console.ReadLine();
-            Console.WriteLine("insert Describtion");
-            Describtion = Console.ReadLine();
+            Product_Name = Console.ReadLine();
             Console.WriteLine("insert Price");
             Price = Console.ReadLine();
-            Console.WriteLine("insert Image");
-            Image = Console.ReadLine();
+            Console.WriteLine("insert Category_Id");
+            Category_Id = Console.ReadLine();
+            Console.WriteLine("insert Description");
+            Description = Console.ReadLine();
 
-            string query = "INSERT INTO Products(Category_Id,Name,Describtion,Price,Image)" + "VALUES(@Category_Id,@Name,@Describtion,@Price,@Image)";
+            string query = "INSERT INTO Products(Product_Name,Price,Category_Id,Description)" + "VALUES(@Product_Name,@Price,@Category_Id,@Description)";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             using (SqlCommand command = new SqlCommand(query, connection))
             {
+                command.Parameters.Add("@Product_Name", SqlDbType.VarChar, 50).Value = Product_Name;
+                command.Parameters.Add("@Price", SqlDbType.VarChar, 50).Value = Price;
                 command.Parameters.Add("@Category_Id", SqlDbType.Int).Value = Category_Id;
-                command.Parameters.Add("@Name", SqlDbType.VarChar, 50).Value = Name;
-                command.Parameters.Add("@Describtion", SqlDbType.VarChar, 50).Value = Describtion;
-                command.Parameters.Add("@Price", SqlDbType.Int).Value = Price;
-                command.Parameters.Add("@Image", SqlDbType.VarChar, 50).Value = Image;
+                command.Parameters.Add("@Description", SqlDbType.VarChar, 50).Value = Description;
                 connection.Open();
                 int RowAffected = command.ExecuteNonQuery();
                 rowsEffact++;
@@ -62,7 +59,7 @@ namespace Ado.NET
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        Console.WriteLine("\t{0}\t{1}\\t{2}\\t{3}\t{4}\t{5}", reader[0], reader[1], reader[2], reader[3],reader[4], reader[5]);
+                        Console.WriteLine("\t{0}\t{1}\t{2}\t{3}\t{4}", reader[0], reader[1], reader[2], reader[3],reader[4]);
                     }
                     reader.Close();
                 }

@@ -10,13 +10,13 @@ namespace Ado.NET
     {
         static void Main(string[] args)
         {
-            string connectionString= "data source=srv2\\pupils;initial catalog=MyShop;Integrated Security=SSPI;Persist Security Info=False;TrustServerCertificate=true";
+            string connectionString= "data source=srv2\\pupils;initial catalog=MyShop_0331;Integrated Security=SSPI;Persist Security Info=False;TrustServerCertificate=true";
             Category category = new Category();
             Product product = new Product();
             //product.readProduct(connectionString);
-            //category.readCategory(connectionString);
-            category.InsertCategory(connectionString);
-            product.InsertProduct(connectionString);
+            category.readCategory(connectionString);
+            //category.InsertCategory(connectionString);
+            //product.InsertProduct(connectionString);
         }
     }
 }
